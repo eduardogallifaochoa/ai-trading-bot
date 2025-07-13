@@ -26,7 +26,6 @@ The OpenAI API is like a thinking brain. Binance is a real-time crypto data stre
 
 🧠 Next Steps (Planned Features)
 
-
 Basic buy/sell logic
 
 OpenAI-based trading suggestions
