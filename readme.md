@@ -16,7 +16,7 @@ Right now, this project just connects to Binance and shows BTC and ETH prices in
 
 This repo is a mix of crypto, automation, curiosity, and a bit of humor(TDHD coding JK full respect to the mental illness person out there I send them love). I also use this project to show my coding progress in case someone wants to hire me (please do, I need a job jasjasjdasd).
 
-Thanks for reading this far. Now let me walk you through how this bot works, in a chill, and simple way possible.(According to me)
+Thanks for reading this far. Now let me walk you through how this bot works, in a chill, and simple way.(According to me)
 
 ## 📦 Project Structure
 
