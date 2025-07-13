@@ -42,14 +42,14 @@ BINANCE_API_SECRET=your_api_secret_here
 
 Save it. Ctrl + S (Trust me in VSCode you have to save everything)
 
-**(🗝️ Do I need Binance API keys right now?
+**(🗝️ Do I need Binance API keys right now?**
 
-Technically? No.
+**Technically? No.**
 
-The bot only uses public endpoints from Binance, so no authentication is needed *yet*.  
-But I added `.env` handling because I plan to add private features later (like balance tracking, trading, alerts, etc.).
+**The bot only uses public endpoints from Binance, so no authentication is needed *yet*.  **
+**But I added `.env` handling because I plan to add private features later (like balance tracking, trading, alerts, etc.).**
 
-So yeah, you'll see `.env` stuff in the code, but it doesn't break if you don't have one yet — it's future-proof 😎)**
+**So yeah, you'll see `.env` stuff in the code, but it doesn't break if you don't have one yet — it's future-proof 😎)**
 
 Step 2
 
@@ -111,4 +111,4 @@ Sit back, relax, and watch the magic happen 🧙‍♂️
 
 Crafted with curiosity, caffeine, and help from my buddy ChatGPT — plus the hope of making it big someday (or at least making some cash)  
 **Eduardo Gallifa (eduardogallifaochoa)**
-A warm shout-out to my real-life bro Portillo, who always helps me with crypto 😎
+A warm shout-out to my real-life bro **Portillo**, who always helps me with crypto 😎
