@@ -19,12 +19,15 @@ This repo is a mix of crypto, automation, curiosity, and a bit of humor(TDHD cod
 Thanks for reading this far. Now let me walk you through how this bot works, in a chill, and simple way.(According to me)
 
 ## 📦 Project Structure
-
-ai-trading-bot/  
-├── bot.py  
-├── .env  
-├── requirements.txt  
-└── README.md
+ai-trading-bot/
+├── bot.py                 ← main script that runs the bot
+├── .env                   ← (optional) your Binance API keys
+├── requirements.txt       ← required packages for Python users
+├── README.md              ← this beautiful guide you're reading
+├── dist/
+│   └── bot.exe            ← standalone executable (for non-coders)
+├── images/
+│   └── ai-banner-resized.png ← header image for README
 
 ## 🤖 How This Thing Works (The Chill Guide)
 
@@ -58,6 +61,6 @@ Make it smarter than me
 
 ## 🧠 Author
 
-Crafted with curiosity, caffeine, and help from my buddy ChatGPT — plus the hope of making it big someday (or at least making some cash)  
+Crafted with curiosity, caffeine, and help from my buddy ChatGPT plus the hope of making it big someday (or at least making some cash which I'm already doing thank God(Jesuschrist))  
 **Eduardo Gallifa (eduardogallifaochoa)**
 A warm shout-out to my real-life bro **Portillo**, who always helps me with crypto 😎
