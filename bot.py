@@ -1,48 +1,49 @@
-from binance.client import Client
-from dotenv import load_dotenv
-from datetime import datetime
 import time
+import requests
 import os
+from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load API keys from .env file
 load_dotenv()
+API_KEY = os.getenv('BINANCE_API_KEY')
+API_SECRET = os.getenv('BINANCE_API_SECRET')
 
-# Read Binance API credentials
-api_key = os.getenv("BINANCE_API_KEY")
-api_secret = os.getenv("BINANCE_API_SECRET")
+# URL to fetch crypto prices
+url = "https://api.binance.com/api/v3/ticker/price"
 
-# Initialize Binance client
-client = Client(api_key, api_secret)
+# Log file to save prices
+log_file = "price_log.txt"
 
-# Function to get the current price of a symbol
 def get_price(symbol):
     try:
-        ticker = client.get_symbol_ticker(symbol=symbol)
-        return float(ticker["price"])
+        response = requests.get(url, params={"symbol": symbol})
+        response.raise_for_status()
+        return float(response.json()["price"])
     except Exception as e:
-        print(f"❌ Error getting {symbol}: {e}")
+        print(f"❌ Error fetching {symbol} price:", e)
         return None
 
-# Function to log price to a text file with timestamp
 def log_price(symbol, price):
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open("price_log.txt", "a") as f:
-        f.write(f"[{now}] {symbol}: ${price:,.2f}\n")
+    with open(log_file, "a") as file:
+        file.write(f"{symbol}: {price:.2f} USD\n")
 
-# Main loop
-if __name__ == "__main__":
+print("✅ Bot started. Press Ctrl+C to stop.\n")
+
+try:
     while True:
         btc_price = get_price("BTCUSDT")
         eth_price = get_price("ETHUSDT")
 
         if btc_price is not None:
-            print(f"💹 BTCUSDT: ${btc_price:,.2f}")
+            print(f"🟩 BTCUSDT: ${btc_price:,.2f}")
             log_price("BTCUSDT", btc_price)
 
         if eth_price is not None:
-            print(f"💹 ETHUSDT: ${eth_price:,.2f}")
+            print(f"🟩 ETHUSDT: ${eth_price:,.2f}")
             log_price("ETHUSDT", eth_price)
 
-        # Wait for 3 minutes before next check
         print("⏳ Waiting 3 minutes...\n")
-        time.sleep(180)  # 180 seconds = 3 minutes
+        time.sleep(180)
+
+except KeyboardInterrupt:
+    print("🛑 Bot stopped by user (Ctrl+C). Goodbye!\n")
