@@ -28,84 +28,33 @@ ai-trading-bot/
 
 ## 🤖 How This Thing Works (The Chill Guide)
 
-Step 1
+✅ Quick Setup
+Download this repo as ZIP
+Unzip it anywhere you want (for example: Desktop).
 
-Generate your Binance API keys here:  
-https://www.binance.com/en/my/settings/api-management
-(This is the official website of Binance, but you can navigate to it by yourself as well for max security.)
+Open the unzipped folder, and go to the folder /dist/
 
-Open VSCode create a new folder, or open one, name it for example: ai-bot
-Then create a file called `.env` (Yes literally ".env"), and paste your Binance API keys like this:
+Double-click bot.exe
+That’s it! A black terminal window will pop up and start fetching crypto prices.
 
-BINANCE_API_KEY=your_api_key_here  
-BINANCE_API_SECRET=your_api_secret_here
+Let it run
 
-Save it. Ctrl + S (Trust me in VSCode you have to save everything)
+Every 3 minutes, it fetches the BTC and ETH prices
 
-**(🗝️ Do I need Binance API keys right now?**
+It prints the prices in the terminal
 
-**Technically? No.**
+It logs them into a file called price_log.txt (in the same folder)
 
-**The bot only uses public endpoints from Binance, so no authentication is needed *yet*.  **
-**But I added `.env` handling because I plan to add private features later (like balance tracking, trading, alerts, etc.).**
+Close the window or press Ctrl + C to stop it
 
-**So yeah, you'll see `.env` stuff in the code, but it doesn't break if you don't have one yet — it's future-proof 😎)**
+🧠 Bonus tip: If the terminal opens and instantly closes, try launching it via right-click → "Open in Terminal" or use cmd to catch errors.
 
-Step 2
-
-Open a terminal in VSCode, and install the requirements.txt file  
-You have to write, and enter the code in the terminal like this to install the packages inside your virtual environment, or your general environment doesn't matter, but it's a good practice to use virtual environments(clean copies of Python in this case without any other dependencies, or libraries (requirements.txt) installed.):
-
-pip install -r requirements.txt
-
-Step 3  
-In the terminal you have to write a code to run the bot, like this:
-
-python bot.py
-
-And click enter.
-
-Step 4  
-What it does:  
-It connects to Binance  
-Gets the price of BTC and ETH in USDT  
-Shows the prices in the terminal  
-Saves them (with time) into a file called `price_log.txt`  
-Waits 3 minutes, and repeats forever.
-
-
-
-What I want to add later:  
+**What I want to add later:**
 Simple buy/sell logic 
 OpenAI-powered decision making  
 Telegram, or Discord alerts  
 Dashboard(it's a need for non tech guys) 
 Make it smarter than me
-
-
-
-## ⚡️ Quick Recap (TL;DR version)
-👉 *Heads up*: You don’t need a .env file for now, but the code supports it in case you wanna scale it up later.
-(You can jump to step 3)
-1. Go to [Binance API Management](https://www.binance.com/en/my/settings/api-management) and generate your keys  
-2. Create a `.env` file in your folder and paste this inside (replace with your real keys):  
-
-    BINANCE_API_KEY=your_api_key_here
-    BINANCE_API_SECRET=your_api_secret_here
-
-3. Open terminal, and install the packages:  
-   `pip install -r requirements.txt`  
-4. Run the bot with:  
-   `python bot.py`  
-5. The bot will:  
-   - Fetch BTC, and ETH prices from Binance  
-   - Print them in the terminal  
-   - Save them to `price_log.txt`  
-   - Repeat every 3 minutes
-
-Sit back, relax, and watch the magic happen 🧙‍♂️
-
-
 
 ## 🧠 Author
 
