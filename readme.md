@@ -110,5 +110,5 @@ Sit back, relax, and watch the magic happen 🧙‍♂️
 ## 🧠 Author
 
 Crafted with curiosity, caffeine, and help from my buddy ChatGPT — plus the hope of making it big someday (or at least making some cash)  
-**Eduardo Gallifa (egallifa)**
+**Eduardo Gallifa (eduardogallifaochoa)**
 A warm shout-out to my real-life bro Portillo, who always helps me with crypto 😎
