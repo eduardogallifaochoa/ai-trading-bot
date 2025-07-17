@@ -1,74 +1,31 @@
-import time
-import threading
-import requests
-import os
-from dotenv import load_dotenv
-from openai import OpenAI
+# bot.py
 
-# Load API keys from .env
+from services.price_fetcher import get_price, get_last_closes
+from services.news_fetcher import get_crypto_news
+from services.gpt_analyzer import generate_analysis as ask_openai
+
+from utils.formatters import print_suggestions
+from database.db_utils import init_db
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
+
+# Load API key
 load_dotenv()
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-# Binance API URL
-url = "https://api.binance.com/api/v3/ticker/price"
-log_file = "price_log.txt"
-
-# Store last known prices
-last_prices = {
-    "BTCUSDT": None,
-    "ETHUSDT": None
+# Quick-access questions
+suggestions = {
+    "1": "What's the market summary for BTC?",
+    "2": "Give me an ETH trend analysis based on recent news and prices.",
+    "3": "What’s going on with Bitcoin this week?",
+    "4": "Tell me the recent news for Ethereum.",
+    "5": "Show me the last 3 daily closes for BTC.",
+    "6": "What do you do and how does this work?"
 }
 
-def get_price(symbol):
-    try:
-        response = requests.get(url, params={"symbol": symbol})
-        response.raise_for_status()
-        return float(response.json()["price"])
-    except:
-        return None
-
-# Get last N daily closing prices (default 30 days)
-def get_last_closes(symbol, limit=30):
-    try:
-        response = requests.get(
-            url="https://api.binance.com/api/v3/klines",
-            params={
-                "symbol": symbol,
-                "interval": "1d",  # daily candles
-                "limit": limit     # number of days
-            }
-        )
-        response.raise_for_status()
-        data = response.json()
-        closes = [float(candle[4]) for candle in data]  # candle[4] = close price
-        return closes
-    except Exception as e:
-        print(f"❌ Error fetching candle data for {symbol}:", e)
-        return None
-
-
-
-def log_price(symbol, price):
-    with open(log_file, "a") as file:
-        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        file.write(f"[{timestamp}] {symbol}: {price:.2f} USD\n")
-
-def update_prices_loop():
-    while True:
-        btc_price = get_price("BTCUSDT")
-        eth_price = get_price("ETHUSDT")
-
-        if btc_price:
-            last_prices["BTCUSDT"] = btc_price
-            log_price("BTCUSDT", btc_price)
-        if eth_price:
-            last_prices["ETHUSDT"] = eth_price
-            log_price("ETHUSDT", eth_price)
-
-        print(f"🕒 Last update: BTC ${btc_price:,.2f}, ETH ${eth_price:,.2f}")
-        time.sleep(180)
-
+# Detect coin from user input
 def interpret_crypto_question(question):
     question = question.lower()
     mapping = {
@@ -82,49 +39,62 @@ def interpret_crypto_question(question):
             return mapping[k]
     return None
 
-def ask_openai(prompt, symbol=None):
-    price = last_prices.get(symbol) if symbol else None
-    context = "You're a helpful crypto assistant. Answer clearly in casual tone."
+def main():
+    init_db()
+    print("💬 Ask me anything about crypto (type 'exit' to quit)\n")
+    print_suggestions(suggestions)
 
-    # Si pregunta por velas
-    if any(word in prompt.lower() for word in ["vela", "velas", "candlestick", "candlesticks", "cerró la vela"]):
-        if symbol:
-            closes = get_last_3_closes(symbol)
-            if closes:
-                context += (
-                    f"\nThe last 3 daily closing prices for {symbol} are:\n"
-                    f"- 3 days ago: ${closes[0]:,.2f}\n"
-                    f"- 2 days ago: ${closes[1]:,.2f}\n"
-                    f"- Yesterday: ${closes[2]:,.2f}"
-                )
+    while True:
+        question = input("You: ").strip()
+        if question.lower() in ["exit", "quit"]:
+            print("👋 Exiting crypto assistant.")
+            break
+
+        if question in suggestions:
+            question = suggestions[question]
+
+        if question.lower() in [
+            "what do you do", "how do you work",
+            "what do you do and how does this work?",
+            "what can you do", "how does this bot work"
+        ]:
+            print("🤖 Jarvis: I was programmed by Eduardo Gallifa 🧠🔥")
+            print("- Real-time prices from Binance 📊")
+            print("- Last 3 daily closes (candles) 🕯️")
+            print("- Breaking crypto news 📰")
+            print("- Smart GPT analysis 🤖💬\n")
+            continue
+
+        # Check if user just wants news
+        if "news" in question.lower():
+            symbol = interpret_crypto_question(question)
+            if symbol:
+                news = get_crypto_news(currencies=symbol.replace("USDT", ""))
+                print(f"📰 Latest {symbol.replace('USDT','')} news:\n{news}\n")
             else:
-                context += f"\nSorry, I couldn't retrieve candle data for {symbol}."
+                print("📰 Sorry, please mention BTC or ETH to fetch news.\n")
+            continue
 
-    elif price and symbol:
-        context += f"\nCurrent price of {symbol} is {price:.2f} USD."
+        # Full analysis for BTC or ETH
+        symbol = interpret_crypto_question(question)
+        if symbol in ["BTCUSDT", "ETHUSDT"]:
+            btc_price = get_price("BTCUSDT")
+            eth_price = get_price("ETHUSDT")
+            btc_closes = get_last_closes("BTCUSDT", limit=3)
+            eth_closes = get_last_closes("ETHUSDT", limit=3)
+            news = get_crypto_news(currencies=symbol.replace("USDT", ""))
 
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": context},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=150
-    )
-    return response.choices[0].message.content.strip()
+            response = ask_openai(
+                btc_price=btc_price,
+                eth_price=eth_price,
+                btc_closes=btc_closes,
+                eth_closes=eth_closes,
+                news_text=news
+            )
+        else:
+            response = f"🤖 Jarvis: Sorry, I can only analyze BTC or ETH for now."
 
-
-# Start background thread for updating prices
-threading.Thread(target=update_prices_loop, daemon=True).start()
-
-print("💬 Ask about crypto (type 'exit' to quit)\n")
-
-while True:
-    question = input("You: ")
-    if question.lower() in ["exit", "quit"]:
-        print("👋 Exiting crypto assistant.")
-        break
-
-    symbol = interpret_crypto_question(question)
-    response = ask_openai(question, symbol)
-    print(f"🤖 Jarvis: {response}\n")
+        print(f"🤖 Jarvis: {response}\n")
+        
+if __name__ == "__main__":
+    main()
