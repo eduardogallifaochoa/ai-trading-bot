@@ -75,7 +75,7 @@ python bot.py
 ## ✍️ Author
 
 Built with curiosity, caffeine, and help from my buddy ChatGPT.
-Eduardo Gallifa – QA Automation Engineer, Psychologist, Industrial Engineer, Crypto enthusiast, Gamer🤓, Catholic(Jesuschrist is King 🗿👑).
+Eduardo Gallifa – QA Automation Engineer, Industrial Engineer, Crypto enthusiast, Gamer🤓, Catholic(Jesuschrist is King 🗿👑).
 Massive shout-out to my real-life bro **Portillo**, who always helps with crypto stuff 😎
 ## 📨 Contact
 
