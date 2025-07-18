@@ -1,4 +1,5 @@
-# news_fetcher.py
+# services/news_fetcher.py
+
 import requests
 from datetime import datetime
 import os
@@ -22,20 +23,21 @@ def get_crypto_news(limit=5, currencies="BTC,ETH"):
         response = requests.get(BASE_URL, params=params)
         response.raise_for_status()
         data = response.json()
-        news_items = data.get("results", [])[:limit]
+        news_items = data.get("results", [])
 
         if not news_items:
-            return "⚠️ No news found."
+            return "⚠️ No news found in the last few days."
 
         formatted_news = []
-        for item in news_items:
+        for item in news_items[:limit]:
             title = item.get("title", "No title")
             url = item.get("url", "")
             published_at = item.get("published_at", "")
 
-            # Try to format the timestamp safely
             try:
-                time_fmt = datetime.strptime(published_at, "%Y-%m-%dT%H:%M:%S%z").strftime("%d %b %Y %H:%M")
+                dt = datetime.strptime(published_at, "%Y-%m-%dT%H:%M:%S%z")
+                dt_naive = dt.replace(tzinfo=None)  # Convertir a naive
+                time_fmt = dt_naive.strftime("%d %b %Y %H:%M")
             except:
                 time_fmt = "unknown time"
 
