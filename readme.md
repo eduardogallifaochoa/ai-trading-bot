@@ -2,9 +2,11 @@
 
 Hey there, I’m Eduardo Gallifa — a Manual QA Engineer currently transitioning into automation (because, let’s be real: better pay, smarter work). I’m also an Industrial Engineer with a second degree in Psychology. Been into crypto since 2018. I’ve seen BTC at 20k, and now over 100k. Wild ride.
 
-This repo is my personal playground. I built it to mess around with everything I’ve been learning lately: automation, APIs, and how to connect smart stuff to get real value. I see APIs as engines that talk via JSON.
+This repo is my personal playground. I built it to experiment with everything I’ve been learning lately: automation, APIs, AI, and how to connect smart tools to extract real value. I see APIs as engines that talk via JSON — and I love building the gearbox.
 
-The OpenAI API is like a thinking brain. Binance is a real-time crypto data stream. One thinks. The other feeds numbers. Together? An AI-powered crypto assistant 😎
+The OpenAI API acts like a thinking brain, Binance provides the real-time crypto price stream, and now **CryptoPanic adds a global news pulse**. One thinks. Another feeds numbers. The last one gives context with real-world events. Together?  
+**An AI-powered crypto assistant with market awareness.** 😎
+
 
 ---
 
