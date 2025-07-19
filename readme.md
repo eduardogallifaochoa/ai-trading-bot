@@ -19,6 +19,7 @@ It demonstrates:
 
 I’ve decided to evolve this idea into a **Custom GPT connected to APIs**,  
 focusing on **real-time AI-driven trading insights**.
+
 ---
 
 ## **Features**
