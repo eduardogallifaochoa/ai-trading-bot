@@ -5,11 +5,23 @@ import os
 import sys
 import io
 
+# === FIX PATHS ===
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+if ROOT_DIR not in sys.path:
+    sys.path.append(ROOT_DIR)
+
+SERVICES_PATH = os.path.join(ROOT_DIR, "services")
+UTILS_PATH = os.path.join(ROOT_DIR, "utils")
+for path in [SERVICES_PATH, UTILS_PATH]:
+    if path not in sys.path:
+        sys.path.append(path)
+# =================
+
 from services.report_generator import generate_analysis
 from database.db_utils import get_reports_history, get_report_by_id, init_db
 
-# Force UTF-8 output
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+# Fix encoding
+sys.stdout.reconfigure(encoding='utf-8')
 
 # Load environment variables
 load_dotenv()
@@ -50,7 +62,7 @@ parser.add_argument("prompt", nargs="?", help="Custom prompt for GPT analysis")
 parser.add_argument("--history", action="store_true", help="Show history (last 10 reports)")
 parser.add_argument("--last", type=int, help="Show the last N reports")
 parser.add_argument("--read", type=int, help="Read a specific report by ID")
-parser.add_argument("--patterns", action="store_true", help="Show historical patterns")
+parser.add_argument("--patterns", action="store_true", help="Show real-time market patterns")
 parser.add_argument("--clean", action="store_true", help="Clean database entries with errors")
 
 args = parser.parse_args()
@@ -69,9 +81,17 @@ elif args.read is not None:
     read_report(args.read)
 
 elif args.patterns:
-    from analytics.patterns import generate_pattern_analysis
-    print("\n[HISTORICAL PATTERNS ANALYSIS]\n")
-    print(generate_pattern_analysis())
+    from services.pattern_analysis import analyze_all_cryptos
+
+    print("\n[REAL-TIME PATTERN ANALYSIS]\n")
+    crypto_analyses = analyze_all_cryptos()
+    for analysis in crypto_analyses:
+        symbol = analysis.get("symbol", "Unknown").replace("USDT", "")
+        if "error" in analysis:
+            print(f"{symbol} → Error: {analysis['error']}\n")
+        else:
+            # Mensaje intuitivo en una sola línea
+            print(f"{symbol} → {analysis['suggestion']}")
 
 elif args.clean:
     from utils.clean_db import clean_db

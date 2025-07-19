@@ -1,0 +1,8 @@
+[
+  {
+    "symbol": "ETHUSDT",
+    "amount": 50.0,
+    "buy_price": 3500.0,
+    "trade_type": "futures"
+  }
+]
