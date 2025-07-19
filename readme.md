@@ -1,41 +1,100 @@
-# **AI Trading Bot - Pro GUI**
+# AI Trading Bot - Pro GUI
 
-Hey there, I’m **Eduardo Gallifa** — a Manual QA Engineer transitioning into automation (because, let’s be real: better pay, smarter work). I’m also an Industrial Engineer with a second degree in Psychology. Been into crypto since 2018. I’ve seen BTC at 20k, and now over 100k. Wild ride.
+This project is a **showcase of my skills as a developer and QA Engineer**.  
+It combines **AI-driven crypto analysis** (OpenAI GPT models), **real-time price data**, **news aggregation**, and a **custom GUI** built with `tkinter`.
 
-This repo started as my **personal playground** to experiment with automation, APIs, AI, and connecting smart tools. I see APIs as engines that talk via JSON — and I love building the gearbox.
-
-The **OpenAI API** acts like the brain, **Binance provides real-time crypto prices**, and **CryptoPanic adds global news context**. Together?  
-**An AI-powered crypto assistant with market awareness.** 😎
+Although the project is functional, I’ve decided to **stop further development** here and move to building a **Custom GPT connected to APIs** for the next evolution of this idea.
 
 ---
 
-## **💬 Features**
+## **Features**
 
-### **AI & Market Analysis**
-- **OpenAI GPT-4o** for natural-language crypto insights.  
-- **Daily, weekly, monthly outlooks** for **BTC, ETH, BNB, SOL, XRP**.  
-- **BUY / HOLD / SELL** calls with **TP/SL** hints (for spot trades).  
-- **PnL calculations** when buy price is provided.
+### **1. AI-Powered Crypto Analysis**
+- Uses **OpenAI GPT-4o** to generate market insights and recommendations.
+- Analyzes **daily, weekly, and monthly perspectives** for popular cryptocurrencies:  
+  **BTC, ETH, BNB, SOL, XRP.**
+- Provides **Buy/Hold/Sell recommendations** with **Take-Profit (TP)** and **Stop-Loss (SL)** hints (for spot trading).
+- Supports **PnL (Profit and Loss) calculations** if the user provides a buy price.
 
-### **Market Data & News**
-- **Live price feeds** (Binance API).  
-- **Last 3 daily closes** for each coin.  
-- **CryptoPanic news** merged with price analysis.
+### **2. Real-Time Market Data**
+- Fetches **live prices** using Binance API.
+- Displays **last 3 daily closes** for each tracked cryptocurrency.
+- Integrates a **news fetcher** to pull the latest crypto headlines (via CryptoPanic API).
 
-### **Pattern Recognition**
-- Detects **bullish/bearish patterns** and merges results with AI insights.
+### **3. Pattern Recognition**
+- Includes a custom **pattern analysis module** that detects basic technical patterns (e.g., bullish/bearish signals).
+- Combines pattern data with AI analysis for smarter suggestions.
 
-### **GUI Application (Tkinter)**
-- **Dashboard** with real-time prices & recommendations.  
-- **Chat Section** for AI queries.  
-- **Control Panel** with dropdowns (`daily/weekly/monthly`, `spot/futures`) — locked to prevent accidental edits.  
-- **Action Buttons**: Generate Report, Analyze Patterns, Show History, etc.
+### **4. GUI Application (Tkinter)**
+- A fully functional **desktop interface** with the following panels:
+  - **Dashboard:** Shows current prices, recommendations, and AI suggestions for each crypto.
+  - **Chat Section:** Interactive chat with the AI trading assistant.
+  - **Control Panel:** Dropdown menus for **Trading Mode** (`daily`, `weekly`, `monthly`) and **Trade Type** (`spot`, `futures`).
+  - **Action Buttons:** Trigger quick actions, refresh data, and run AI analysis on demand.
+- **Dropdowns locked (`readonly`)** to prevent accidental user input errors.
 
-### **Reports & Database**
-- AI-generated reports stored in **SQLite (`crypto_summaries.db`)**.  
-- Summaries combining price data, news, and historical patterns.
+### **5. Logging & Reports**
+- Automatically saves AI reports and analysis results into a local **SQLite database**.
+- Generates summaries of news + technical analysis in each session.
 
 ---
+
+## **Tech Stack**
+
+- **Python 3.10+**
+- **Tkinter** (for GUI)
+- **OpenAI API (GPT-4o)** for AI-driven analysis.
+- **Binance API** for live prices.
+- **CryptoPanic API** for news aggregation.
+- **SQLite** for storing logs and reports.
+- **dotenv** for managing environment variables (API keys).
+- **Custom Modules:**  
+  - `services/price_fetcher.py`  
+  - `services/news_fetcher.py`  
+  - `services/report_generator.py`  
+  - `analytics/patterns.py`  
+
+---
+
+## **Current State & Future Plans**
+This project was built as a **personal experiment and portfolio showcase**.  
+It demonstrates:
+- **API integrations**
+- **AI prompt engineering**
+- **Custom GUI design**
+- **Data analysis logic**
+
+### **Next Step: Custom GPT**
+I’ve decided to move this concept to a **Custom GPT connected to multiple APIs**,  
+where the AI can:
+- **Pull live market data.**
+- **Analyze historical price trends.**
+- **Provide tailored trading strategies in real-time.**
+
+---
+
+## **How to Run**
+
+1. Clone the repository:
+   ```plaintext
+   git clone https://github.com/eduardogallifaochoa/ai-trading-bot.git
+   cd ai-trading-bot
+   ```
+2. Create the virtual environment, and install dependencies:
+```plaintext
+  python -m venv venv
+  source venv/bin/activate  # or venv\Scripts\activate on Windows
+  pip install -r requirements.txt
+```
+3. Add your api keys in the .env file:
+```plaintext
+OPENAI_API_KEY=your_openai_key
+```
+4. Launch the GUI:
+```plaintext
+python gui_launcher.py
+```
+
 
 ## 📦 **Project Structure**
 ```plaintext
@@ -99,7 +158,6 @@ It demonstrates:
 
 I’ve decided to evolve this idea into a **Custom GPT connected to APIs**,  
 focusing on **real-time AI-driven trading insights**.
-
 
 ## ✍️ Author
 Built with curiosity, caffeine, and help from my buddy ChatGPT.
