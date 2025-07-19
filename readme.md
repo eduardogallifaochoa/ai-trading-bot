@@ -7,6 +7,20 @@ Although the project is functional, I’ve decided to **stop further development
 
 ---
 
+## 🧠 Showcase Note
+
+This project is **archived as a portfolio piece**.  
+It demonstrates:
+
+- **API integrations** (Binance, CryptoPanic, OpenAI).
+- **AI prompt engineering**.
+- **Tkinter-based GUI design**.
+- **Data analysis & storage logic**.
+
+I’ve decided to evolve this idea into a **Custom GPT connected to APIs**,  
+focusing on **real-time AI-driven trading insights**.
+---
+
 ## **Features**
 
 ### **1. AI-Powered Crypto Analysis**
@@ -53,23 +67,6 @@ Although the project is functional, I’ve decided to **stop further development
   - `services/news_fetcher.py`  
   - `services/report_generator.py`  
   - `analytics/patterns.py`  
-
----
-
-## **Current State & Future Plans**
-This project was built as a **personal experiment and portfolio showcase**.  
-It demonstrates:
-- **API integrations**
-- **AI prompt engineering**
-- **Custom GUI design**
-- **Data analysis logic**
-
-### **Next Step: Custom GPT**
-I’ve decided to move this concept to a **Custom GPT connected to multiple APIs**,  
-where the AI can:
-- **Pull live market data.**
-- **Analyze historical price trends.**
-- **Provide tailored trading strategies in real-time.**
 
 ---
 
@@ -146,18 +143,6 @@ Ask natural-language crypto questions directly.
 ### Dashboard View
 ![Dashboard](images/Screenshot_1.png)
 
-## 🧠 Showcase Note
-
-This project is **archived as a portfolio piece**.  
-It demonstrates:
-
-- **API integrations** (Binance, CryptoPanic, OpenAI).
-- **AI prompt engineering**.
-- **Tkinter-based GUI design**.
-- **Data analysis & storage logic**.
-
-I’ve decided to evolve this idea into a **Custom GPT connected to APIs**,  
-focusing on **real-time AI-driven trading insights**.
 
 ## ✍️ Author
 Built with curiosity, caffeine, and help from my buddy ChatGPT.
