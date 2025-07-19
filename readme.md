@@ -1,3 +1,14 @@
+# AI Trading Bot - Pro GUI
+
+> **Showcase Project**  
+This repository is a **portfolio showcase of my technical skills as a QA Engineer and developer**.  
+It blends **AI-driven crypto analysis** (via OpenAI GPT models), **real-time price data**, **news aggregation**, and a **custom GUI built with Tkinter**.  
+
+Although the bot is fully functional, I’ve decided to **freeze further development** here and shift my focus to building a **Custom GPT connected to APIs**, which will be the next evolution of this concept.
+
+---
+
+
 # **AI Trading Playground: BTC and ETH Tracker Bot**
 
 Hey there, I’m Eduardo Gallifa — a Manual QA Engineer currently transitioning into automation (because, let’s be real: better pay, smarter work). I’m also an Industrial Engineer with a second degree in Psychology. Been into crypto since 2018. I’ve seen BTC at 20k, and now over 100k. Wild ride.
