@@ -60,14 +60,6 @@ The OpenAI API acts like a thinking brain, Binance provides the real-time crypto
 
 ---
 
-## **🧠 Next Steps (Planned Features)**
-- Advanced **buy/sell trading logic**.  
-- **Telegram or Discord alerts** for price thresholds.  
-- **Dashboard with real-time charts** for BTC and ETH.  
-- Enhanced AI insights using **multi-day pattern recognition**.  
-- Improve database management with **automatic pruning & backups**.
-
-
 ## 📦 Project Structure
 ```plaintext
 ai-trading-bot/
