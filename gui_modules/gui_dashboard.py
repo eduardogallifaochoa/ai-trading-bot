@@ -1,11 +1,25 @@
-# gui_modules/gui_dashboard.py
 import tkinter as tk
+from tkinter import ttk
 from services.pattern_analysis import analyze_all_cryptos
 
 def create_dashboard_section(root, default_font, trading_mode, trade_type):
     """
     Creates the dashboard frame and fills it with real-time crypto analysis.
     """
+
+    # Dropdowns: Trading Mode y Trade Type como Combobox (solo lectura)
+    mode_label = tk.Label(root, text="Trading Mode:", bg="#1e1e1e", fg="white", font=(default_font, 11, "bold"))
+    mode_label.pack(anchor="w", padx=5)
+    trading_mode = ttk.Combobox(root, values=["daily", "weekly", "monthly"], state="readonly")
+    trading_mode.current(0)
+    trading_mode.pack(anchor="w", padx=5)
+
+    type_label = tk.Label(root, text="Trade Type:", bg="#1e1e1e", fg="white", font=(default_font, 11, "bold"))
+    type_label.pack(anchor="w", padx=5)
+    trade_type = ttk.Combobox(root, values=["spot", "futures"], state="readonly")
+    trade_type.current(0)
+    trade_type.pack(anchor="w", padx=5)
+
     dashboard_frame = tk.Frame(root, bg="#1e1e1e")
     dashboard_frame.pack(fill="both", expand=True, pady=10)
 

@@ -3,10 +3,10 @@ from tkinter import scrolledtext
 from services.report_generator import generate_analysis
 from services.pattern_analysis import analyze_all_cryptos
 from openai import OpenAI
-
-# Load OpenAI client
 import os
 from dotenv import load_dotenv
+
+# Load OpenAI client
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -34,12 +34,21 @@ def create_chat_section(root, output_box, trading_mode, trade_type):
     chat_frame = tk.Frame(root, bg="#1e1e1e")
     chat_frame.pack(fill="both", expand=True, pady=5)
 
-    chat_history = scrolledtext.ScrolledText(chat_frame, wrap="word", height=10, bg="#1e1e1e", fg="white", font=("Roboto", 11))
+    # Historial (solo lectura)
+    chat_history = scrolledtext.ScrolledText(
+        chat_frame,
+        wrap="word",
+        height=10,
+        bg="#1e1e1e",
+        fg="white",
+        font=("Roboto", 11),
+        state='disabled'
+    )
     chat_history.pack(fill="both", expand=True, padx=5, pady=5)
     chat_history.tag_config("user", foreground="#00FF00")
     chat_history.tag_config("bot", foreground="#00BFFF")
-    chat_history.config(state='disabled')
 
+    # Entrada usuario
     chat_entry = tk.Entry(root, font=("Roboto", 12), bg="#333333", fg="white")
     chat_entry.pack(fill="x", padx=5, pady=5)
 
