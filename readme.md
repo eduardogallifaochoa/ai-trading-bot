@@ -1,9 +1,15 @@
 # AI Trading Bot - Pro GUI
 
-This project is a **showcase of my skills as a developer and QA Engineer**.  
-It combines **AI-driven crypto analysis** (OpenAI GPT models), **real-time price data**, **news aggregation**, and a **custom GUI** built with `tkinter`.
+This project is a **showcase of my skills as a developer and QA Engineer**, blending **AI-driven crypto analysis** (via OpenAI GPT models), **real-time price data**, **news aggregation**, and a **custom GUI built with Tkinter**.
 
-Although the project is functional, I’ve decided to **stop further development** here and move to building a **Custom GPT connected to APIs** for the next evolution of this idea.
+Hey there, I’m **Eduardo Gallifa** — a Manual QA Engineer transitioning into automation (because, let’s be real: smarter work and better pay). I’m also an Industrial Engineer. I’ve been into crypto since 2018 — saw BTC at 20k and now over 100k. Wild ride.
+
+This repo started as my **personal playground** to experiment with **automation, APIs, AI, and smart integrations**. I see APIs as engines that speak JSON — and I enjoy building the gearbox.
+
+The **OpenAI API** acts as the brain, **Binance delivers live market data**, and **CryptoPanic provides global news signals**. Combined, they create:  
+**An AI-powered crypto assistant with real market awareness.** 😎
+
+Although the bot is fully functional, I’ve decided to **freeze development here** and move on to building a **Custom GPT connected to APIs** — the natural evolution of this idea.
 
 ---
 
