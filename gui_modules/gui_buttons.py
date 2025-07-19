@@ -1,4 +1,4 @@
-#gui_modules/gui_buttons.py
+# gui_modules/gui_buttons.py
 
 import tkinter as tk
 from tkinter import simpledialog
@@ -18,31 +18,40 @@ def run_command(command, output_box):
         return None
 
 def generate_report(output_box):
+    """Prompt user for input and generate a report."""
     prompt = simpledialog.askstring("Generate Report", "Enter your prompt:")
     if prompt:
         run_command(f'python generate_report.py "{prompt}"', output_box)
 
 def show_history(output_box):
+    """Display the full report history."""
     run_command("python generate_report.py --history", output_box)
 
 def show_last(output_box):
+    """Show the last N reports."""
     n = simpledialog.askinteger("Show Last Reports", "Enter N:")
     if n:
         run_command(f"python generate_report.py --last {n}", output_box)
 
 def read_report(output_box):
+    """Read a report by ID."""
     report_id = simpledialog.askinteger("Read Report", "Enter report ID:")
     if report_id:
         run_command(f"python generate_report.py --read {report_id}", output_box)
 
 def show_patterns(output_box, trading_mode, trade_type):
-    run_command(f"python generate_report.py --patterns --mode {trading_mode.get()} --trade_type {trade_type.get()}", output_box)
+    """Analyze patterns with current trading mode and type."""
+    run_command(
+        f"python generate_report.py --patterns --mode {trading_mode.get()} --trade_type {trade_type.get()}",
+        output_box
+    )
 
 def clean_db(output_box):
+    """Clean the database."""
     run_command("python generate_report.py --clean", output_box)
 
 def add_trade_ui(output_box):
-    """UI to add a trade to the portfolio."""
+    """UI for adding a trade to the portfolio."""
     symbol = simpledialog.askstring("Add Trade", "Enter symbol (e.g., ETHUSDT):")
     if not symbol:
         return
@@ -72,10 +81,11 @@ def show_portfolio_ui(output_box, trade_type):
                 f"({p['pnl_percent']:.2f}%) | Action: {p['action']}\n"
             )
 
-import customtkinter as ctk
-
 def create_buttons_section(root, btn_style, output_box, trading_mode, trade_type):
-    """Create main buttons and bind them to functions with pro styling."""
+    """
+    Create the vertical panel of buttons.
+    Clean version: no dropdowns or extra widgets here.
+    """
     button_frame = tk.Frame(root, bg="#1e1e1e")
     button_frame.pack(pady=10)
 
@@ -91,11 +101,9 @@ def create_buttons_section(root, btn_style, output_box, trading_mode, trade_type
     ]
 
     for text, cmd in buttons:
-        btn = tk.Button(
+        tk.Button(
             button_frame, text=text, command=cmd,
             bg="#333333", fg="white",
             activebackground="#555555", activeforeground="white",
             relief="flat", width=30, height=1, font=("Roboto", 10, "bold")
-        )
-        btn.pack(pady=4, padx=10)
-
+        ).pack(pady=4, padx=10)
