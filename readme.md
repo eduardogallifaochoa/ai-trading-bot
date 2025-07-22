@@ -22,6 +22,9 @@ This project leverages a **full CI/CD pipeline with GitHub Actions**, performing
 
 ![CI/CD](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/ci_cd.yml/badge.svg)
 
+![CI Tests](https://github.com/eduardo-gallifa/ai-trading-bot/actions/workflows/ci.yml/badge.svg)
+![CI/CD Executable](https://github.com/eduardo-gallifa/ai-trading-bot/actions/workflows/ci_cd.yml/badge.svg)
+
 **Why is this important?**  
 It ensures the bot is continuously tested, the APIs remain functional, and builds are always ready for deployment.
 
