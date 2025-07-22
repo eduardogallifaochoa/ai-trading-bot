@@ -1,30 +1,37 @@
 # build.spec
 # PyInstaller build configuration for AI Trading Bot
-# This file defines how to create a standalone executable for the project.
+# This file builds a standalone executable for the project.
 
-from PyInstaller.utils.hooks import collect_submodules, Tree
+# --- CONFIGURATION ---
+# Entry point of the application
+main_script = 'bot.py'
 
-# --- MAIN CONFIGURATION ---
-main_script = 'bot.py'  # Entry point of your app
-block_cipher = None
-
-# Include full directories (services, analytics, database, utils)
+# Folders to include (copy all files inside each folder)
 extra_data = [
-    Tree('services', prefix='services'),
-    Tree('analytics', prefix='analytics'),
-    Tree('database', prefix='database'),
-    Tree('utils', prefix='utils'),
+    ('services/*', 'services'),
+    ('analytics/*', 'analytics'),
+    ('database/*', 'database'),
+    ('utils/*', 'utils'),
 ]
 
-# Automatically detect hidden imports (OpenAI, dotenv, etc.)
-hiddenimports = collect_submodules('openai') + collect_submodules('dotenv')
+# Cipher for encrypting Python bytecode (usually None)
+block_cipher = None
 
-# --- ANALYSIS ---
+# --- IMPORTS ---
+from PyInstaller.utils.hooks import collect_submodules
+
+# Automatically detect hidden imports for these libraries
+hiddenimports = (
+    collect_submodules('openai') +
+    collect_submodules('dotenv')
+)
+
+# --- ANALYSIS STEP ---
 a = Analysis(
     [main_script],
-    pathex=['.'],
+    pathex=['.'],  # Current project directory
     binaries=[],
-    datas=extra_data,
+    datas=extra_data,  # Additional folders/files
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
@@ -36,10 +43,10 @@ a = Analysis(
     noarchive=False,
 )
 
-# --- BUILD PYZ ---
+# --- BUILD PYZ (Python archive) ---
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-# --- BUILD EXE ---
+# --- CREATE EXE ---
 exe = EXE(
     pyz,
     a.scripts,
@@ -51,11 +58,11 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,  # Compress executable
-    console=True,  # Change to False for GUI-only app
+    upx=True,  # Use UPX compression
+    console=True,  # Set False to hide console (GUI-only)
 )
 
-# --- COLLECT FILES ---
+# --- FINAL COLLECTION ---
 coll = COLLECT(
     exe,
     a.binaries,
