@@ -1,12 +1,11 @@
 # build.spec
 # PyInstaller build configuration for AI Trading Bot
-# This spec file is used to create a standalone executable of the bot.
+# This file defines how to package the bot into a standalone executable.
 
-# --- CONFIGURATION ---
-# Main script entry point
-main_script = 'bot.py'
+# --- MAIN CONFIGURATION ---
+main_script = 'bot.py'  # Entry point script
 
-# Data folders to include in the build (copy entire directories)
+# Include these folders in the final build (services, analytics, database, etc.)
 extra_data = [
     ('services', 'services'),
     ('analytics', 'analytics'),
@@ -14,24 +13,23 @@ extra_data = [
     ('utils', 'utils'),
 ]
 
-# Optional cipher for encryption (usually None)
-block_cipher = None
+block_cipher = None  # Encryption cipher (optional, usually None)
 
 # --- IMPORTS ---
 from PyInstaller.utils.hooks import collect_submodules
 
-# Collect hidden imports (required by libraries like openai or dotenv)
+# Automatically detect hidden imports (e.g., OpenAI, dotenv)
 hiddenimports = (
     collect_submodules('openai') +
     collect_submodules('dotenv')
 )
 
-# --- ANALYSIS STEP ---
+# --- ANALYSIS ---
 a = Analysis(
     [main_script],
-    pathex=['.'],  # Current directory
-    binaries=[],
-    datas=extra_data,
+    pathex=['.'],          # Project root
+    binaries=[],           # No custom binaries
+    datas=extra_data,      # Include additional data folders
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
@@ -43,10 +41,10 @@ a = Analysis(
     noarchive=False,
 )
 
-# --- BUILD PYZ (Python archive) ---
+# --- PYZ (Python archive) ---
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-# --- CREATE EXE ---
+# --- EXE BUILD ---
 exe = EXE(
     pyz,
     a.scripts,
@@ -58,11 +56,11 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,  # Use UPX to compress the executable
-    console=True,  # Set to False if you want to hide the console (GUI-only mode)
+    upx=True,        # Use UPX to compress the executable
+    console=True,    # Set to False for GUI-only mode (no console window)
 )
 
-# --- FINAL COLLECTION ---
+# --- FINAL BUNDLE ---
 coll = COLLECT(
     exe,
     a.binaries,
