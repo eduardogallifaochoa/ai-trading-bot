@@ -1,35 +1,30 @@
 # build.spec
 # PyInstaller build configuration for AI Trading Bot
-# This file defines how to package the bot into a standalone executable.
+# This file defines how to create a standalone executable for the project.
+
+from PyInstaller.utils.hooks import collect_submodules, Tree
 
 # --- MAIN CONFIGURATION ---
-main_script = 'bot.py'  # Entry point script
+main_script = 'bot.py'  # Entry point of your app
+block_cipher = None
 
-# Include these folders in the final build (services, analytics, database, etc.)
+# Include full directories (services, analytics, database, utils)
 extra_data = [
-    ('services', 'services'),
-    ('analytics', 'analytics'),
-    ('database', 'database'),
-    ('utils', 'utils'),
+    Tree('services', prefix='services'),
+    Tree('analytics', prefix='analytics'),
+    Tree('database', prefix='database'),
+    Tree('utils', prefix='utils'),
 ]
 
-block_cipher = None  # Encryption cipher (optional, usually None)
-
-# --- IMPORTS ---
-from PyInstaller.utils.hooks import collect_submodules
-
-# Automatically detect hidden imports (e.g., OpenAI, dotenv)
-hiddenimports = (
-    collect_submodules('openai') +
-    collect_submodules('dotenv')
-)
+# Automatically detect hidden imports (OpenAI, dotenv, etc.)
+hiddenimports = collect_submodules('openai') + collect_submodules('dotenv')
 
 # --- ANALYSIS ---
 a = Analysis(
     [main_script],
-    pathex=['.'],          # Project root
-    binaries=[],           # No custom binaries
-    datas=extra_data,      # Include additional data folders
+    pathex=['.'],
+    binaries=[],
+    datas=extra_data,
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
@@ -41,10 +36,10 @@ a = Analysis(
     noarchive=False,
 )
 
-# --- PYZ (Python archive) ---
+# --- BUILD PYZ ---
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-# --- EXE BUILD ---
+# --- BUILD EXE ---
 exe = EXE(
     pyz,
     a.scripts,
@@ -56,11 +51,11 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,        # Use UPX to compress the executable
-    console=True,    # Set to False for GUI-only mode (no console window)
+    upx=True,  # Compress executable
+    console=True,  # Change to False for GUI-only app
 )
 
-# --- FINAL BUNDLE ---
+# --- COLLECT FILES ---
 coll = COLLECT(
     exe,
     a.binaries,
