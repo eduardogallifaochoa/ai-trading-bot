@@ -20,7 +20,11 @@ This project leverages a **full CI/CD pipeline with GitHub Actions**, performing
 - **Automated testing** on every push, pull request, and release.
 - **Executable build generation** via PyInstaller, uploaded as downloadable artifacts on releases.
 
-![CI/CD](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/ci_cd.yml/badge.svg)
+
+
+
+![CI Tests](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/ci.yml/badge.svg)
+![CI/CD Executable](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/ci_cd.yml/badge.svg)
 
 **Why is this important?**  
 It ensures the bot is continuously tested, the APIs remain functional, and builds are always ready for deployment.
@@ -186,6 +190,9 @@ This project includes a **GitHub Actions CI/CD pipeline** that ensures stability
 
 ### 🔍 Test Logs
 ![Test Logs](images/test_logs.png)
+
+## CD Executable
+![CD Executable](assets/CDexe.png)
 
 
 ---
