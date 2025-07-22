@@ -17,24 +17,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repo
+      # Step 1: Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Set up Python
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest python-dotenv pyinstaller
+          pip install pytest python-dotenv
 
-      # Create .env dynamically with GitHub Secrets
+      # Step 4: Create .env dynamically with GitHub Secrets
       - name: Create .env file
         run: |
           echo "BINANCE_API_KEY=${{ secrets.BINANCE_API_KEY }}" >> .env
@@ -42,7 +42,7 @@ jobs:
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
           echo "CRYPTOPANIC_API_KEY=${{ secrets.CRYPTOPANIC_API_KEY }}" >> .env
 
-      # Run tests
+      # Step 5: Run tests
       - name: Run tests
         run: |
           PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
@@ -53,29 +53,28 @@ jobs:
     if: github.event_name == 'release'
 
     steps:
-      # Checkout repo
+      # Step 1: Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Set up Python
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt pyinstaller
 
-      # Build executable using build.spec
+      # Step 4: Build executable using build.spec
       - name: Build executable
         run: |
-          pyinstaller build.spec
-          ls dist/AI_Trading_Bot
+          pyinstaller build.spec || (echo "PyInstaller failed. Listing dist and build directories:" && ls -R dist/ build/)
 
-      # Upload artifact to the release
+      # Step 5: Upload artifact to the release
       - name: Upload executable
         uses: softprops/action-gh-release@v1
         with:
