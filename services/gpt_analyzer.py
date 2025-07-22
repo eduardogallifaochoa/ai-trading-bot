@@ -1,15 +1,16 @@
-
 import os
-from openai import OpenAI
-from dotenv import load_dotenv
+import openai  # Importamos TODO el módulo, no solo OpenAI
+import dotenv  # Importamos TODO el módulo
 
-# Load environment variables and OpenAI API key
-load_dotenv()
+# Load environment variables
+dotenv.load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Ask OpenAI to generate an analysis based on the crypto context
 def generate_analysis(btc_price, eth_price, btc_closes, eth_closes, news_text):
+    # Create the OpenAI client only when the function is called
+    client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
     prompt = f"""
 You're a crypto market analyst bot. Generate a professional but casual summary of the current situation for BTC and ETH.
 
