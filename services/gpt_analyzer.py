@@ -1,6 +1,6 @@
 import os
-import openai  # Importamos TODO el módulo, no solo OpenAI
-import dotenv  # Importamos TODO el módulo
+import openai
+import dotenv
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -8,7 +8,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Ask OpenAI to generate an analysis based on the crypto context
 def generate_analysis(btc_price, eth_price, btc_closes, eth_closes, news_text):
-    # Create the OpenAI client only when the function is called
+    # Create the OpenAI client only when this function runs
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
     prompt = f"""
