@@ -6,9 +6,12 @@ def create_dashboard_section(root, default_font, trading_mode, trade_type):
     """
     Creates the dashboard frame and fills it with real-time crypto analysis.
     """
+
+    # Dashboard main frame
     dashboard_frame = tk.Frame(root, bg="#1e1e1e")
     dashboard_frame.pack(fill="both", expand=True, pady=10)
 
+    # Table headers
     headers = ["Crypto", "Price", "Recommendation"]
     widths = [10, 15, 80]
     for i, header in enumerate(headers):
@@ -25,8 +28,8 @@ def create_dashboard_section(root, default_font, trading_mode, trade_type):
         ).grid(row=0, column=i, sticky="w")
 
     def refresh_dashboard():
-        # Clear old data
-        for widget in dashboard_frame.winfo_children()[3:]:  # skip headers
+        # Clear old rows (skip headers)
+        for widget in dashboard_frame.winfo_children()[3:]:
             widget.destroy()
 
         # Fetch analysis
@@ -35,6 +38,7 @@ def create_dashboard_section(root, default_font, trading_mode, trade_type):
             trade_type=trade_type.get()
         )
 
+        # Populate rows
         for idx, analysis in enumerate(crypto_analyses, start=1):
             symbol = analysis.get("symbol", "Unknown").replace("USDT", "")
             price = f"{analysis.get('current_price', 0):.2f} USD"
@@ -80,6 +84,7 @@ def create_dashboard_section(root, default_font, trading_mode, trade_type):
                 pady=2
             ).grid(row=idx, column=2, sticky="w")
 
+        # Auto-refresh after 60s
         root.after(60000, refresh_dashboard)
 
     refresh_dashboard()

@@ -5,7 +5,7 @@ import tkinter.font as tkFont
 import sys
 import os
 
-# === UTF-8 output ===
+# === Ensure UTF-8 output ===
 sys.stdout.reconfigure(encoding='utf-8')
 
 # === Fix Python Paths ===
@@ -17,7 +17,7 @@ for path in [SERVICES_PATH, GUI_MODULES_PATH]:
     if path not in sys.path:
         sys.path.append(path)
 
-# === Import modules ===
+# === Import GUI modules ===
 from gui_modules.gui_top_controls import create_top_controls
 from gui_modules.gui_buttons import create_buttons_section
 from gui_modules.gui_dashboard import create_dashboard_section
@@ -38,7 +38,7 @@ root.option_add("*Font", default_font)
 trading_mode = tk.StringVar(value="daily")
 trade_type = tk.StringVar(value="spot")
 
-# ======== GRID CONFIG ========
+# ======== GRID CONFIGURATION ========
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 root.grid_columnconfigure(1, weight=2)
@@ -53,14 +53,27 @@ left_panel = tk.Frame(root, bg="#1e1e1e")
 left_panel.grid(row=1, column=0, sticky="nswe", padx=10, pady=10)
 left_panel.grid_rowconfigure(0, weight=1)
 
-# Output box (Top)
+# Output box (Top) - read-only mode
 output_box = scrolledtext.ScrolledText(
-    left_panel, width=40, height=10, bg="#1e1e1e",
-    fg="#00FF00", insertbackground="white", font=default_font
+    left_panel,
+    width=40,
+    height=10,
+    bg="#1e1e1e",
+    fg="#00FF00",
+    insertbackground="white",
+    font=default_font,
+    state='disabled'  # Prevent manual editing
 )
 output_box.pack(fill="x", pady=5)
 
-# Button panel
+# Helper function to write to output_box
+def log_to_output_box(message):
+    output_box.config(state='normal')
+    output_box.insert(tk.END, message + "\n")
+    output_box.see(tk.END)
+    output_box.config(state='disabled')
+
+# Buttons panel
 btn_style = {
     "width": 30,
     "bg": "#333333",
@@ -82,15 +95,15 @@ right_panel.grid_rowconfigure(0, weight=3)
 right_panel.grid_rowconfigure(1, weight=1)
 right_panel.grid_columnconfigure(0, weight=1)
 
-# Dashboard
+# Dashboard section
 dashboard_frame = tk.Frame(right_panel, bg="#1e1e1e")
 dashboard_frame.grid(row=0, column=0, sticky="nsew")
 create_dashboard_section(dashboard_frame, default_font, trading_mode, trade_type)
 
-# Chat
+# Chat section
 chat_frame = tk.Frame(right_panel, bg="#1e1e1e")
 chat_frame.grid(row=1, column=0, sticky="nsew", pady=(10, 0))
 create_chat_section(chat_frame, output_box, trading_mode, trade_type)
 
-# === Start loop ===
+# === Start GUI loop ===
 root.mainloop()
