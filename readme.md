@@ -165,6 +165,30 @@ This project includes a **GitHub Actions CI/CD pipeline** that ensures stability
 ### Dashboard View
 ![Dashboard](images/Screenshot_1.png)
 
+### ✅ CI/CD Pipeline Passing
+![CI/CD Pipeline Passing](images/ci_passed.png)
+
+### 🔍 Test Logs
+![Test Logs](images/test_logs.png)
+
+
+---
+
+## 🚀 Downloads
+
+Looking to test the latest version of the **AI Trading Bot**?
+
+- **[Download Latest Release](https://github.com/eduardogallifaochoa/ai-trading-bot/releases/latest)**  
+  *(Includes precompiled executables and packaged files.)*
+
+Every release is automatically built and tested via **GitHub Actions CI/CD**:
+- Runs full **pytest suite**.
+- Builds an executable with **PyInstaller**.
+- Uploads the build as an artifact on the **Releases page**.
+
+---
+
+
 
 ## ✍️ Author
 Built with curiosity, caffeine, and help from my buddy ChatGPT.
