@@ -145,6 +145,21 @@ Option 3: Classic Bot
 python bot.py
 Ask natural-language crypto questions directly.
 ```
+## ⚡ CI/CD Pipeline
+
+This project includes a **GitHub Actions CI/CD pipeline** that ensures stability and build automation:
+
+- **CI:**  
+  - Installs dependencies from `requirements.txt`.  
+  - Runs unit tests with `pytest` to validate:
+    - Binance API endpoints (mocked live price checks).
+    - OpenAI API responses (mocked).  
+    - Logger functionality (price log generation).  
+
+- **CD:**  
+  - Builds a standalone Windows executable (`ai_bot.exe`) using **PyInstaller**.  
+  - Uploads the executable as a downloadable artifact on GitHub Releases.
+
 ## 📸 Screenshots
 
 ### Dashboard View
