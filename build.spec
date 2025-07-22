@@ -1,6 +1,5 @@
 # build.spec
 # PyInstaller build configuration for AI Trading Bot
-# This file defines how the executable is built and what data is included.
 
 # --- CONFIGURATION ---
 main_script = 'bot.py'
@@ -17,16 +16,20 @@ block_cipher = None
 
 # --- IMPORTS ---
 from PyInstaller.utils.hooks import collect_submodules
+import os
 
 # Collect hidden imports for libraries like openai and dotenv
 hiddenimports = collect_submodules('openai') + collect_submodules('dotenv')
+
+# Normalize data paths
+datas = [(os.path.join('.', src), dest) for src, dest in extra_data]
 
 # --- ANALYSIS ---
 a = Analysis(
     [main_script],
     pathex=['.'],
     binaries=[],
-    datas=extra_data,
+    datas=datas,
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
@@ -45,16 +48,14 @@ pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
     [],
+    exclude_binaries=True,
     name='AI_Trading_Bot',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=True,  # Set to False for GUI-only mode
+    console=True,
 )
 
 # --- COLLECT ---
