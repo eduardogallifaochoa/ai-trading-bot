@@ -165,6 +165,13 @@ This project includes a **GitHub Actions CI/CD pipeline** that ensures stability
 ### Dashboard View
 ![Dashboard](images/Screenshot_1.png)
 
+### ✅ CI/CD Pipeline Passing
+![CI/CD Pipeline Passing](images/ci_passed.png)
+
+### 🔍 Test Logs
+![Test Logs](images/test_logs.png)
+
+
 ---
 
 ## 🚀 Downloads
