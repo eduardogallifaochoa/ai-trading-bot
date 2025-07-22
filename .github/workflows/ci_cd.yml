@@ -12,6 +12,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -32,7 +35,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest python-dotenv
+          pip install pytest python-dotenv pyinstaller
 
       # Step 4: Create .env dynamically with GitHub Secrets
       - name: Create .env file
@@ -72,12 +75,13 @@ jobs:
       # Step 4: Build executable using build.spec
       - name: Build executable
         run: |
-          pyinstaller build.spec || (echo "PyInstaller failed. Listing dist and build directories:" && ls -R dist/ build/)
+          pyinstaller build.spec
+          ls dist/
 
       # Step 5: Upload artifact to the release
       - name: Upload executable
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/AI_Trading_Bot/*
+          files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
