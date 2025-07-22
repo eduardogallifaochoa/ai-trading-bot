@@ -10,9 +10,6 @@ The **OpenAI API** acts as the brain, **Binance delivers live market data**, and
 **An AI-powered crypto assistant with real market awareness.** 😎
 
 Although the bot is fully functional, I’ve decided to **freeze development here** and move on to building a **Custom GPT connected to APIs** — the natural evolution of this idea.
-
-![CI/CD](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/cicd.yml/badge.svg)
-
 ---
 ## **CI/CD & Real-Time API Testing**
 
