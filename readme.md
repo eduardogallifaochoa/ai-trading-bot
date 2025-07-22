@@ -14,6 +14,22 @@ Although the bot is fully functional, I’ve decided to **freeze development her
 ![CI/CD](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/cicd.yml/badge.svg)
 
 ---
+## **CI/CD & Real-Time API Testing**
+
+This project leverages a **full CI/CD pipeline with GitHub Actions**, performing:
+
+- **Real-time API validation** for Binance and OpenAI endpoints.
+- **Automated testing** on every push, pull request, and release.
+- **Executable build generation** via PyInstaller, uploaded as downloadable artifacts on releases.
+
+![CI/CD](https://github.com/eduardogallifaochoa/ai-trading-bot/actions/workflows/ci_cd.yml/badge.svg)
+
+**Why is this important?**  
+It ensures the bot is continuously tested, the APIs remain functional, and builds are always ready for deployment.
+
+---
+
+---
 
 ## 🧠 Showcase Note
 
@@ -176,19 +192,23 @@ This project includes a **GitHub Actions CI/CD pipeline** that ensures stability
 
 ---
 
-## 🚀 Downloads
+## **Releases & Downloads**
 
-Looking to test the latest version of the **AI Trading Bot**?
+Every release of this project includes:
 
-- **[Download Latest Release](https://github.com/eduardogallifaochoa/ai-trading-bot/releases/latest)**  
-  *(Includes precompiled executables and packaged files.)*
+- A **Windows executable (.exe)** built automatically with **PyInstaller**.
+- The latest **validated version** of the bot, fully tested with CI/CD.
+- Ready-to-use binaries without the need for manual setup.
 
-Every release is automatically built and tested via **GitHub Actions CI/CD**:
-- Runs full **pytest suite**.
-- Builds an executable with **PyInstaller**.
-- Uploads the build as an artifact on the **Releases page**.
+👉 **[Download the latest release here](../../releases/latest)**  
+
+**Pipeline Flow:**  
+1. Code changes are tested via **GitHub Actions** (Binance & OpenAI API checks).
+2. On release, the CI/CD pipeline builds the `.exe` artifact.
+3. The `.exe` is attached to the GitHub Release for instant download.
 
 ---
+
 
 
 
