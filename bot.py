@@ -1,21 +1,22 @@
 # bot.py
 
 import os
-import dotenv
-import openai
+from dotenv import load_dotenv
+from openai import OpenAI
 
+# Import all necessary modules
 import services.price_fetcher as price_fetcher
 import services.news_fetcher as news_fetcher
 import services.gpt_analyzer as gpt_analyzer
-
 import utils.formatters as formatters
 import database.db_utils as db_utils
 
 # Load environment variables
-dotenv.load_dotenv()
+load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
 
-# Quick-access questions
+# Quick-access suggestions
 suggestions = {
     "1": "What's the market summary for BTC?",
     "2": "Give me an ETH trend analysis based on recent news and prices.",
@@ -25,7 +26,7 @@ suggestions = {
     "6": "What do you do and how does this work?"
 }
 
-# Detect coin from user input
+# Detect crypto coin from user input
 def interpret_crypto_question(question):
     question = question.lower()
     mapping = {
@@ -92,7 +93,7 @@ def main():
                 news_text=news
             )
         else:
-            response = "🤖 Jarvis: Sorry, I can only analyze BTC or ETH for now."
+            response = f"🤖 Jarvis: Sorry, I can only analyze BTC or ETH for now."
 
         print(f"🤖 Jarvis: {response}\n")
 
