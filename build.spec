@@ -1,37 +1,32 @@
 # build.spec
 # PyInstaller build configuration for AI Trading Bot
-# This file builds a standalone executable for the project.
+# This file defines how the executable is built and what data is included.
 
 # --- CONFIGURATION ---
-# Entry point of the application
 main_script = 'bot.py'
 
-# Folders to include (copy all files inside each folder)
+# Folders to include (services, analytics, database, utils)
 extra_data = [
-    ('services/*', 'services'),
-    ('analytics/*', 'analytics'),
-    ('database/*', 'database'),
-    ('utils/*', 'utils'),
+    ('services', 'services'),
+    ('analytics', 'analytics'),
+    ('database', 'database'),
+    ('utils', 'utils'),
 ]
 
-# Cipher for encrypting Python bytecode (usually None)
 block_cipher = None
 
 # --- IMPORTS ---
 from PyInstaller.utils.hooks import collect_submodules
 
-# Automatically detect hidden imports for these libraries
-hiddenimports = (
-    collect_submodules('openai') +
-    collect_submodules('dotenv')
-)
+# Collect hidden imports for libraries like openai and dotenv
+hiddenimports = collect_submodules('openai') + collect_submodules('dotenv')
 
-# --- ANALYSIS STEP ---
+# --- ANALYSIS ---
 a = Analysis(
     [main_script],
-    pathex=['.'],  # Current project directory
+    pathex=['.'],
     binaries=[],
-    datas=extra_data,  # Additional folders/files
+    datas=extra_data,
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
@@ -43,10 +38,10 @@ a = Analysis(
     noarchive=False,
 )
 
-# --- BUILD PYZ (Python archive) ---
+# --- PYZ (Python archive) ---
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-# --- CREATE EXE ---
+# --- EXE ---
 exe = EXE(
     pyz,
     a.scripts,
@@ -58,11 +53,11 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,  # Use UPX compression
-    console=True,  # Set False to hide console (GUI-only)
+    upx=True,
+    console=True,  # Set to False for GUI-only mode
 )
 
-# --- FINAL COLLECTION ---
+# --- COLLECT ---
 coll = COLLECT(
     exe,
     a.binaries,
